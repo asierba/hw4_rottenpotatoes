@@ -33,5 +33,16 @@ describe MoviesController do
         assigns(:movies).should == @fake_results
       end
     end
+    
+    it 'should redirect to the Home page if there is no director info' do
+       # Arrange : return nothing
+        Movie.stub(:find_similar_movies)
+          
+        # Act
+        get :similar, { :id => @dummy_id }
+        
+        # Assert
+        response.should redirect_to movies_path
+    end
   end
 end
